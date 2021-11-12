@@ -1,0 +1,235 @@
+\documentclass{beamer}
+
+% \usepackage{beamerthemesplit} // Activate for custom appearance
+
+\mode<presentation>
+{
+  \usetheme{Darmstadt}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{default}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+}
+
+\title{Logic Basics}
+\author{Cameron Beebe}
+\institute
+{
+The SciPhi Initiative, LLC
+\medskip
+}
+\date{\today}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{arrows, decorations.markings, matrix, decorations.pathmorphing}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+%\usepgfplotslibrary{clickable}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+\usepackage{relsize}
+\usepackage{natbib}
+\usepackage{bussproofs}
+\sloppy
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+
+\section{Introduction}
+\frame
+{
+\frametitle{Introduction}
+
+\begin{itemize}
+    \item<1->  Logic seems like math.
+    \item<2->  Classical logic sometimes taken to be crucial aspect of foundations of math.
+    \item<3->  Philosophers use to formalize arguments and sharpen critical thinking skills.
+    \item<4->  BUT Philosophers and Logicians also argue about Logic itself.  Pure, Applied, Pluralism, Non-Classical, etc.
+\end{itemize}
+
+
+}
+
+
+
+
+\section{Translating Sentences}
+\frame
+{
+  \frametitle{Translating Sentences}
+
+  \begin{itemize}
+  \item<1->  It is \textbf{R}aining outside., The pavement is \textbf{W}et.
+  \begin{itemize}
+      \item<2->  \textbf{R}, \textbf{W}
+  \end{itemize}
+  \item<3->  It is \textbf{R}aining outside \textbf{AND} the pavement is \textbf{W}et.  It is \textbf{R}aining outside \textbf{OR} the pavement is \textbf{W}et.
+  \begin{itemize}
+  \item<4->  \textbf{R} \textbf{AND} \textbf{W}, \textbf{R} \textbf{OR} \textbf{W}
+  \item<5->  $R \land W$, $R \lor W$
+  \end{itemize}
+  \item<6->  \textbf{If} it is \textbf{R}aining outside, \textbf{then} the pavement will be \textbf{W}et.
+  \begin{itemize}
+      \item<7->  $R \rightarrow W$
+      \item<8-> Alternative notation: $R \supset W$ (Set Theory!)
+  \end{itemize}  
+  \item<9->  It is \textbf{not} \textbf{R}aining outside.
+  \begin{itemize}
+      \item<10-> $\lnot R$ 
+  \end{itemize}
+  \end{itemize}
+}
+
+\frame
+{
+\frametitle{Classical Logic}
+
+\begin{itemize}
+    \item<1-> Formally, a logic is defined over a set of terms (``alphabet'' or ``language'') by it's connectives (relational symbols), valuation functions and truth tables (semantics), and rules of inference. 
+    \item<2-> Classical Logic is typically defined over a set of ``sentences'' $\mathcal{L}$ via the set of connectives $\{ \lnot, \land, \lor, \rightarrow \}$ with a binary valuation function $v(i) \mapsto \{0,1\} $ or $\{F,T\}$ for $i \in \mathcal{L}$.  Proofs are constructed according to classical logical rules of inference.
+\end{itemize}
+
+
+}
+
+
+
+\section{Truth Tables}
+\frame
+{
+\frametitle{Truth Table Examples}
+
+\begin{center}
+    
+DeMorgan's Law: $\lnot (A \land B) = \lnot A \lor \lnot B$
+
+\vspace{1cm}
+
+\begin{tabular}{c|c|c|c|c}
+$A$ & $B$ & $A\land B$ & $\lnot (A \land B)$ & $\lnot A\lor \lnot B$\\
+\midrule
+T & T & T & F & F \\
+T & F & F & T & T \\
+F & T & F & T & T \\
+F & F & F & T & T 
+\end{tabular}
+
+\end{center}
+
+}
+
+\frame
+{
+\frametitle{Truth Table Examples}
+
+\begin{center}
+Material Implication: $A \rightarrow B = \lnot A \lor B$
+
+\vspace{1cm}
+
+\begin{tabular}{c|c|c|c}
+   $A$  & $B$ & $A\to B$ & $\lnot A \lor B$ \\
+   \midrule
+    T & T & T & T \\
+    T & F & F & F \\
+    F & T & T & T \\
+    F & F & T & T
+\end{tabular}
+
+\end{center}
+
+
+}
+
+\section{Validity and Soundness}
+
+\frame
+{
+\frametitle{Validity and Soundness}
+
+\begin{itemize}
+    \item<1->  Validity: It is not possible for all premise formulas to be True while the conclusion is also False. (The argument's form is Truth Preserving)
+    \item<2->  Soundness: All premises (of a valid argument) are actually True.
+    \item<3->  Thus, it is possible for an argument to be Valid, yet not Sound.  (Most philosophizing concerns soundness.)
+\end{itemize}
+
+
+
+}
+
+
+
+\section{Argument or Proof}
+
+\frame
+{
+\frametitle{Arguments and Proofs}
+
+\begin{itemize}
+    \item<1->  Multi-line chain of formulas connected by inference rules.
+    \item<2->  Proofs are `programs' according to Curry-Howard isomorphism.
+    \item<3->  Important link between logic and computer science.  Algorithms.
+\end{itemize}
+
+
+}
+
+\frame
+{
+\frametitle{Modus Ponens and Modus Tollens}
+
+\begin{itemize}
+    \item<1->
+    \AxiomC{$A$}
+    \AxiomC{$A \rightarrow B$}
+    \BinaryInfC{$B$}
+    \DisplayProof
+    \item<2-> \vspace{1cm}
+    \AxiomC{$A \rightarrow B$}
+    \AxiomC{$\lnot B$}
+    \BinaryInfC{$\lnot A$}
+    \DisplayProof
+    \vspace{5mm}
+    \item<3-> --------- is read as ``therefore'', sometimes also denoted by $\therefore$
+    \item<4-> (Plug in raining example again)
+\end{itemize}
+
+
+
+}
+
+
+
+
+\section{Basic Set Theory}
+\frame
+{
+\frametitle{Basic Set Theory}
+
+\begin{itemize}
+    \item<1-> $\subset, \supset, \cup, \cap, \{\}, \in$
+    \item<2-> $\{$ stuff $\}$
+    \item<3-> $\{a,b,c\} \cap \{b\} = \{b\}$
+    \item<4-> $\{a,b\} \cup \{c,5\} = \{a,b,c,5\}$
+    \item<5-> $\{\} \subset \{a,b,8\}$
+    \item<6-> $twelve \in \{twelve, thirteen\}$
+    \item<7-> Venn diagrams!
+\end{itemize}
+
+}
+
+
+
+\end{document}
